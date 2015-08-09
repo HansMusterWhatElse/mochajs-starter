@@ -1,7 +1,7 @@
 # Mocha JS Example
 
 A simple [MochaJS](http://mochajs.org/) example using
-[ChaiJS](http://http://chaijs.com/)).
+[Chai assert](http://chaijs.com/api/assert/).
 
 
 ## Usage
