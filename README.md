@@ -1,11 +1,12 @@
-# hsr-mochajs-hello-world
+# Mocha JS Example
 
-Ein einfaches Beispiel eines [MochaJS](http://mochajs.org/)-Test-Runners (und [ChaiJS](http://http://chaijs.com/)).
+A simple [MochaJS](http://mochajs.org/) example using
+[ChaiJS](http://http://chaijs.com/)).
 
-## Verwendung
+## Usage
 
 ```
-git clone https://github.com/tjunghans/hsr-mochajs-hello-world.git
+git clone https://github.com/tjunghans/mochajs-starter
 ```
 
-`index.html` im Browser öffnen.
+Open `index.html` in a browser to see the test result.
