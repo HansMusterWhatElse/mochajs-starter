@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Example 2</title>
+  <link rel="stylesheet" href="mocha.css">
+  <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
+    #widget {
+      margin: 70px 10px 10px;
+    }
+    .shopping-list {
+      border: solid 1px #000;
+      box-sizing: border-box;
+      font-family: arial;
+      font-size: 32px;
+      padding: 10px;
+      width 400px;
+    }
+    .shopping-list h2 {
+      margin: 0;
+      font-size: 32px;
+    }
+    .shopping-list input,
+    .shopping-list button {
+      font-size: 32px;
+    }
+    .shopping-list .items {
+      margin-top: 10px;
+    }
+    .shopping-list .item-name {
+      box-sizing: border-box;
+      display: inline-block;
+      width: 400px;
+    }
+     .shopping-list .remove {
+      cursor: pointer;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="widget"></div>
+
+  <div id="mocha"></div>
+  <script src="mocha.js"></script>
+  <script src="chai.js"></script>
+  <script src="mocha-clean-v0.4.0.js"></script>
+
+  <!-- dependencies -->
+  <script src="jquery-2.1.4.js"></script>
+  <!-- source -->
+  <script src="lib/example-2.js"></script>
+  <!-- tests -->
+  <script src="test/example-2-test.js"></script>
+  <!-- demo (this shouldn't be here) -->
+  <script>
+(function () {
+  'use strict';
+  var $ = window.$;
+  var component = window.createShoppingList();
+  $('#widget').html(component.html);
+  component.build($('#widget .shopping-list'));
+}());
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-/*globals mocha, chai, describe, it, add, isPalindrome */
+/*globals mocha, chai, describe, it, isPalindrome */
 (function () {
   'use strict';
 
