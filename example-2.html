@@ -25,7 +25,8 @@
     }
     .shopping-list input,
     .shopping-list button {
-      font-size: 32px;
+      font-size: 24px;
+      margin: 5px;
     }
     .shopping-list .items {
       margin-top: 10px;
@@ -42,7 +43,14 @@
   </style>
 </head>
 <body>
-  <div id="widget"></div>
+  <div id="widget">
+    <div class="shopping-list">
+      <h2 class="title">Shopping List</h2>
+      <input name="new-item">
+      <button class="add-item">Add item</button>
+      <div class="items-container"></div>
+    </div>'
+  </div>
 
   <div id="mocha"></div>
   <script src="mocha.js"></script>
