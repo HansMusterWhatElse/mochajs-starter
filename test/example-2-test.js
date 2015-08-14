@@ -76,6 +76,15 @@
 
       assert.equal($('.items li', div).length, 1);
     });
+
+    // Fixme
+    it('has min width of 2 for item name', function () {
+      addItem('E');
+      addItem('E ');
+      addItem('Ei');
+
+      assert.equal($('.items li', div).length, 1);
+    });
   });
 
   mocha.run();
