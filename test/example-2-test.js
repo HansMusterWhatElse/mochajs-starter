@@ -1,4 +1,4 @@
-/*globals mocha, chai, describe, it, beforeEach, afterEach */
+/*globals mocha, chai, sinon, describe, it, beforeEach, afterEach */
 (function () {
   'use strict';
 
@@ -10,12 +10,15 @@
   describe('Shopping List', function () {
     var div;
     var $newItemInput;
+    var component;
 
     beforeEach(function () {
       div = document.createElement('div');
       document.body.appendChild(div);
+      sinon.stub(window.localStorage, 'setItem');
+      sinon.stub(window.localStorage, 'getItem').returns(undefined);
 
-      var component = window.createShoppingList();
+      component = window.createShoppingList();
       $(div).html(component.html);
       component.build($('.shopping-list', div));
       $newItemInput = $('input[name="new-item"]', div);
@@ -23,6 +26,8 @@
 
     afterEach(function () {
       div.parentNode.removeChild(div);
+      window.localStorage.setItem.restore();
+      window.localStorage.getItem.restore();
     });
 
     it('adds new item on click', function () {
@@ -69,7 +74,6 @@
       assert.equal($('.items li', div).length, 0);
     });
 
-    // Fixme
     it('ignores duplicate items', function () {
       addItem('Milk');
       addItem('Milk');
@@ -77,7 +81,6 @@
       assert.equal($('.items li', div).length, 1);
     });
 
-    // Fixme
     it('has min width of 2 for item name', function () {
       addItem('E');
       addItem('E ');
@@ -85,6 +88,21 @@
 
       assert.equal($('.items li', div).length, 1);
     });
+
+    it('escapes input', function () {
+      addItem('<script>');
+
+      assert.equal(component.controller.model.items[0], '&lt;script&gt;');
+    });
+
+    it('sets focus on input after add/remove', function () {
+      // already implemented. Write test to confirm.
+    });
+
+    it('clears list', function () {
+      assert();
+    });
+
   });
 
   mocha.run();
