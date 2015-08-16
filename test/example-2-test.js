@@ -97,6 +97,7 @@
 
     it('sets focus on input after add/remove', function () {
       // already implemented. Write test to confirm.
+      assert();
     });
 
     it('clears list', function () {
