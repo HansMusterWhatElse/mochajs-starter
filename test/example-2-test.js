@@ -95,9 +95,10 @@
       assert.equal(component.controller.model.items[0], '&lt;script&gt;');
     });
 
-    it('sets focus on input after add/remove', function () {
-      // already implemented. Write test to confirm.
-      assert();
+    it('sets focus on input after add', function () {
+      addItem('Milk');
+
+      assert.equal(document.activeElement, $('input', div)[0]);
     });
 
     it('clears list', function () {
