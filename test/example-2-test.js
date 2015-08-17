@@ -19,6 +19,11 @@
       $newItemInput = $('input[name="new-item"]', div);
     }
 
+    function addItem(item) {
+      $newItemInput.val(item).trigger('change');
+      $('button.add-item', div).trigger('click');
+    }
+
     beforeEach(function () {
       div = document.createElement('div');
       document.body.appendChild(div);
@@ -34,9 +39,7 @@
 
     it('adds new item on click', function () {
       render();
-      $newItemInput.val('Milk');
-
-      $('button.add-item', div).trigger('click');
+      addItem('Milk');
 
       assert.equal($('.items li', div).length, 1, 'should be 1 item');
       assert.equal($newItemInput.val(), '', 'input should be empty');
@@ -44,7 +47,7 @@
 
     it('adds new item on enter', function () {
       render();
-      $newItemInput.val('Milk');
+      $newItemInput.val('Milk').trigger('change');
 
       var e = $.Event("keyup");
       e.which = 13;
@@ -54,11 +57,6 @@
       assert.equal($('.items li', div).length, 1, 'should be 1 item');
       assert.equal($newItemInput.val(), '', 'input should be empty');
     });
-
-    function addItem(item) {
-      $newItemInput.val(item);
-      $('button.add-item', div).trigger('click');
-    }
 
     it('removes item', function () {
       render();
@@ -126,7 +124,38 @@
     });
 
     it('clears list', function () {
-      assert();
+      render();
+      addItem('Milk');
+      addItem('Apple');
+      addItem('Eggs');
+
+      $('button.clear', div).trigger('click');
+
+      assert.equal($('.items li', div).length, 0);
+    });
+
+    it('shows clear button only if there are items', function () {
+      render();
+
+      assert($('button.clear', div).hasClass('hidden'));
+    });
+
+    it('shows clear button if there are items', function () {
+      render();
+
+      addItem('Milk');
+
+      assert.equal($('button.clear', div).hasClass('hidden'), false);
+    });
+
+    it('disables add button if input is empty', function () {
+      render();
+
+      assert($('button.add-item', div)[0].disabled);
+
+      $('input', div).val('Mi').trigger('keyup');
+
+      assert.equal($('button.add-item', div)[0].disabled, false);
     });
 
   });
