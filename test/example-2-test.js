@@ -12,16 +12,18 @@
     var $newItemInput;
     var component;
 
-    beforeEach(function () {
-      div = document.createElement('div');
-      document.body.appendChild(div);
-      sinon.stub(window.localStorage, 'setItem');
-      sinon.stub(window.localStorage, 'getItem').returns(undefined);
-
+    function render() {
       component = window.createShoppingList();
       $(div).html(component.html);
       component.build($('.shopping-list', div));
       $newItemInput = $('input[name="new-item"]', div);
+    }
+
+    beforeEach(function () {
+      div = document.createElement('div');
+      document.body.appendChild(div);
+      sinon.stub(window.localStorage, 'setItem');
+      sinon.stub(window.localStorage, 'getItem');
     });
 
     afterEach(function () {
@@ -31,6 +33,7 @@
     });
 
     it('adds new item on click', function () {
+      render();
       $newItemInput.val('Milk');
 
       $('button.add-item', div).trigger('click');
@@ -40,6 +43,7 @@
     });
 
     it('adds new item on enter', function () {
+      render();
       $newItemInput.val('Milk');
 
       var e = $.Event("keyup");
@@ -57,6 +61,8 @@
     }
 
     it('removes item', function () {
+      render();
+
       addItem('Milk');
       addItem('Apple');
       addItem('Eggs');
@@ -69,12 +75,16 @@
     });
 
     it('ignores empty strings', function () {
+      render();
+
       addItem('');
 
       assert.equal($('.items li', div).length, 0);
     });
 
     it('ignores duplicate items', function () {
+      render();
+
       addItem('Milk');
       addItem('Milk');
 
@@ -82,6 +92,8 @@
     });
 
     it('has min width of 2 for item name', function () {
+      render();
+
       addItem('E');
       addItem('E ');
       addItem('Ei');
@@ -90,9 +102,19 @@
     });
 
     it('escapes input', function () {
+      render();
+
       addItem('<script>');
 
       assert.equal(component.controller.model.items[0], '&lt;script&gt;');
+    });
+
+    it('reads items from localStorage', function () {
+      window.localStorage.getItem.returns('["Milk"]');
+
+      render();
+
+      assert.equal(component.controller.model.items[0], 'Milk');
     });
 
     it('sets focus on input after add/remove', function () {
